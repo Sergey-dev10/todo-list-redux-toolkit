@@ -12,14 +12,14 @@ const todoSlice = createSlice({
       state.tasks.push(action.payload);
     },
     completeTask(state, action) {
-      state.tasks = state.tasks.filter((task) =>
-        task.id === action.payload
+      state.tasks = state.tasks.map((task) =>
+         task.id === action.payload
           ? { ...task, completed: !task.completed }
-          : task,
+          : task
       );
     },
     editTask(state, action) {
-      state.tasks = state.tasks.filter((task) =>
+      state.tasks = state.tasks.map((task) =>
         task.id === action.payload.id
           ? { ...task, title: action.payload.title }
           : task,

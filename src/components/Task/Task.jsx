@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { TaskEditor } from "../TaskEditor";
 import { FaEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
@@ -9,34 +10,22 @@ import {
   ButtonsWrapper,
   Title,
 } from "./Task.styles.js";
-export const Task = ({
-  id,
-  title,
-  completed,
-  onDeleteTask,
-  onEditTask,
-  onTaskCompletionToggle,
-}) => {
+import { completeTask, removeTask } from "../../reducers/todoSlice.js";
+export const Task = ({ id, title, completed }) => {
+  const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [isCompleted, setIsCompleted] = useState(completed);
-  const handleDeleteTask = () => {
-    onDeleteTask(id);
-  };
-  const handleEditTask = (title) => {
-    onEditTask(id, title);
-    setIsEdit(false);
+  const handleRemoveTask = () => {
+    dispatch(removeTask(id));
   };
 
-  const handleReturnBack = () => {
-    setIsEdit(false);
-  };
   const handleEditBtn = () => {
     setIsEdit(true);
   };
 
-  const handleTaskCompletionToggle = (e) => {
+  const handleTaskCompletion = (e) => {
     setIsCompleted(e.target.checked);
-    onTaskCompletionToggle(id, e.target.checked);
+    dispatch(completeTask(id));
   };
 
   return (
@@ -44,22 +33,20 @@ export const Task = ({
       {isEdit ? (
         <TaskEditor
           title={title}
-          onEditTask={handleEditTask}
-          onReturnBack={handleReturnBack}
         />
       ) : (
         <TaskItem>
           <input
             type="checkbox"
             checked={isCompleted}
-            onChange={handleTaskCompletionToggle}
+            onChange={handleTaskCompletion}
           />
           <Title $isCompleted={isCompleted}>{title}</Title>
           <ButtonsWrapper>
             <Button onClick={handleEditBtn}>
               <FaEdit />
             </Button>
-            <Button onClick={handleDeleteTask}>
+            <Button onClick={handleRemoveTask}>
               <AiFillDelete />
             </Button>
           </ButtonsWrapper>
