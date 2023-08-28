@@ -10,17 +10,16 @@ import {
   ButtonsWrapper,
   Title,
 } from "./Task.styles.js";
-import { completeTask, removeTask } from "../../reducers/todoSlice.js";
-export const Task = ({ id, title, completed }) => {
+import { completeTask, removeTask, editTask } from "../../reducers/todoSlice.js";
+export const Task = ({ id, title, completed, edited }) => {
   const dispatch = useDispatch();
-  const [isEdit, setIsEdit] = useState(false);
   const [isCompleted, setIsCompleted] = useState(completed);
   const handleRemoveTask = () => {
     dispatch(removeTask(id));
   };
 
   const handleEditBtn = () => {
-    setIsEdit(true);
+    dispatch(editTask(({id, title, edited: true})))
   };
 
   const handleTaskCompletion = (e) => {
@@ -30,8 +29,9 @@ export const Task = ({ id, title, completed }) => {
 
   return (
     <TaskWrapper>
-      {isEdit ? (
+      {edited ? (
         <TaskEditor
+          id={id}
           title={title}
         />
       ) : (

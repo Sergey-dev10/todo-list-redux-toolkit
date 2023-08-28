@@ -12,8 +12,14 @@ export const TaskAdder = ({ onAddTask }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title.trim()) {
-      const task = { id: nanoid(), title: title, completed: false };
+    const handledTitle = title.trim();
+    if (handledTitle) {
+      const task = {
+        id: nanoid(),
+        title: handledTitle,
+        completed: false,
+        edited: false,
+      };
       dispatch(addTask(task));
     }
     setTitle("");

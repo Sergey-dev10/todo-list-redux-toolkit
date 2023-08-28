@@ -13,15 +13,19 @@ const todoSlice = createSlice({
     },
     completeTask(state, action) {
       state.tasks = state.tasks.map((task) =>
-         task.id === action.payload
+        task.id === action.payload
           ? { ...task, completed: !task.completed }
-          : task
+          : task,
       );
     },
     editTask(state, action) {
       state.tasks = state.tasks.map((task) =>
         task.id === action.payload.id
-          ? { ...task, title: action.payload.title }
+          ? {
+              ...task,
+              title: action.payload.title,
+              edited: action.payload.edited,
+            }
           : task,
       );
     },

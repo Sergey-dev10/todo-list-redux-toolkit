@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FaSave } from "react-icons/fa";
 import { PiKeyReturnFill } from "react-icons/pi";
 import {
@@ -7,8 +8,10 @@ import {
   Input,
   ButtonsWrapper,
 } from "./TaskEditor.styles.js";
+import { editTask } from "../../reducers/todoSlice.js";
 
-export const TaskEditor = ({ title, onEditTask, onReturnBack }) => {
+export const TaskEditor = ({ id, title }) => {
+  const dispatch = useDispatch();
   const [newTitle, steNewTitle] = useState(title);
 
   const handleTitleChange = (e) => {
@@ -18,12 +21,12 @@ export const TaskEditor = ({ title, onEditTask, onReturnBack }) => {
     let title = newTitle.trim();
     if (title) {
       steNewTitle(title);
-      onEditTask(title);
+      dispatch(editTask({ id, title, edited: false }));
     }
   };
 
   const handleReturnBack = () => {
-    onReturnBack();
+    dispatch(editTask({ id, title, edited: false }));
   };
   return (
     <TaskEditorWrapper>
