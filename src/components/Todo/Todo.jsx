@@ -6,14 +6,16 @@ import { TaskList } from "../TaskList";
 import { ActionPanel } from "../ActionPanel";
 import { Search } from "../Search";
 import { TodoWrapper } from "./Todo.styles.js";
-import { selectTasks, updateTasks} from "../../reducers/todoSlice.js";
+import { selectTasks, updateTasks } from "../../reducers/todoSlice.js";
+import {selectAction} from "../../reducers/toggleButtonsSlice.js";
+import { selectFilter } from "../../reducers/filterSlice.js";
 
 export const Todo = () => {
   const dispatch = useDispatch();
   const tasks = useSelector(selectTasks);
+  const action = useSelector(selectAction);
+  const filter = useSelector(selectFilter);
 
-  const [filter, setFilter] = useState("All");
-  const [action, setAction] = useState("add");
   const [searchText, setSearchText] = useState("");
 
   let handledTasks = [];

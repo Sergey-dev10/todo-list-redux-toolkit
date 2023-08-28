@@ -1,10 +1,11 @@
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter, selectFilter } from "../../reducers/filterSlice.js";
 import { Button, FilterWrapper } from "./Filter.styles.js";
-import { useState } from "react";
 export const Filter = () => {
-  const [isSelected, setIsSelected] = useState("All");
+  const dispatch = useDispatch();
+  const isSelected = useSelector(selectFilter);
   const handleFilter = (e) => {
-    setIsSelected(e.target.textContent);
-    onHandleFilter(e.target.textContent);
+    dispatch(setFilter(e.target.textContent));
   };
 
   return (
