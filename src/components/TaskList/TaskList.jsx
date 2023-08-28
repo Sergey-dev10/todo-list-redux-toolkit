@@ -1,12 +1,7 @@
 import { Task } from "../Task";
 import { NoTasksMessage } from "../NoTasksMessage";
 
-export const TaskList = ({
-  tasks,
-  onDeleteTask,
-  onEditTask,
-  onTaskCompletionToggle,
-}) => {
+export const TaskList = ({tasks}) => {
   return (
     <div>
       {tasks.length ? (
@@ -18,9 +13,6 @@ export const TaskList = ({
               id={id}
               title={title}
               completed={completed}
-              onDeleteTask={onDeleteTask}
-              onEditTask={onEditTask}
-              onTaskCompletionToggle={onTaskCompletionToggle}
             />
           );
         })

@@ -1,25 +1,29 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FormWrapper, InputWrapper } from "./TaskAdder.styles.js";
-
+import { nanoid } from "nanoid";
+import { addTask } from "../../reducers/todoSlice.js";
 export const TaskAdder = ({ onAddTask }) => {
-  const [task, setTask] = useState("");
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState("");
 
   const handleInputChange = (e) => {
-    setTask(e.target.value);
+    setTitle(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (task) {
-      onAddTask(task);
+    if (title.trim()) {
+      const task = { id: nanoid(), title: title, completed: false };
+      dispatch(addTask(task));
     }
-    setTask("");
+    setTitle("");
   };
   return (
     <FormWrapper onSubmit={handleSubmit}>
       <InputWrapper
         type="text"
         placeholder="Add new task"
-        value={task}
+        value={title}
         onChange={handleInputChange}
       />
     </FormWrapper>

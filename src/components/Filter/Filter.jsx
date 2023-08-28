@@ -1,6 +1,6 @@
 import { Button, FilterWrapper } from "./Filter.styles.js";
 import { useState } from "react";
-export const Filter = ({ onHandleFilter }) => {
+export const Filter = () => {
   const [isSelected, setIsSelected] = useState("All");
   const handleFilter = (e) => {
     setIsSelected(e.target.textContent);
