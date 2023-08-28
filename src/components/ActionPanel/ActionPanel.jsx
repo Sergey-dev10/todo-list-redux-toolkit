@@ -2,16 +2,12 @@ import { Info } from "../Info";
 import { Filter } from "../Filter";
 import { ToggleAddSearch } from "../ToggleAddSearch";
 import { ActionPanelWrapper } from "./ActionPanel.styles.js";
-export const ActionPanel = ({
-  tasks,
-  onHandleFilter,
-  onHandleToggleAction,
-}) => {
+export const ActionPanel = ({ tasks }) => {
   return (
     <ActionPanelWrapper>
-      <ToggleAddSearch onHandleToggleAction={onHandleToggleAction} />
+      <ToggleAddSearch />
       <Info tasks={tasks} />
-      <Filter onHandleFilter={onHandleFilter} />
+      <Filter />
     </ActionPanelWrapper>
   );
 };

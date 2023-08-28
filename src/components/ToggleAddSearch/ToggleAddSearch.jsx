@@ -1,24 +1,29 @@
+import { useDispatch, useSelector } from "react-redux";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import { ButtonWrapper, Button } from "./ToggleAddSearch.styles.js";
-import { useState } from "react";
-export const ToggleAddSearch = ({ onHandleToggleAction }) => {
-  const [isActive, setIsActive] = useState("add");
+import {
+  selectAction,
+  toggleButtons,
+} from "../../reducers/toggleButtonsSlice.js";
+
+export const ToggleAddSearch = () => {
+  const dispatch = useDispatch();
+  const action = useSelector(selectAction);
   const handleToggleAction = (e) => {
-    setIsActive(e.currentTarget.value);
-    onHandleToggleAction(e.currentTarget.value);
+    dispatch(toggleButtons(e.currentTarget.value));
   };
 
   return (
     <ButtonWrapper>
       <Button
-        $isActive={isActive === "add"}
+        $isActive={action === "add"}
         value="add"
         onClick={handleToggleAction}
       >
         <FaPlus />
       </Button>
       <Button
-        $isActive={isActive === "search"}
+        $isActive={action === "search"}
         value="search"
         onClick={handleToggleAction}
       >
