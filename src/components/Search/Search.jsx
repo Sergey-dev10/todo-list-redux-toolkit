@@ -1,8 +1,10 @@
+import { useDispatch } from "react-redux";
+import { search } from "../../reducers/searchSlice.js";
 import { FormWrapper, InputWrapper } from "./Search.styles.js";
-export const Search = ({ onHandleSearch }) => {
+export const Search = () => {
+  const dispatch = useDispatch();
   const handleSearch = (e) => {
-    console.log(e.target.value);
-    onHandleSearch(e.target.value);
+    dispatch(search(e.target.value));
   };
   return (
     <FormWrapper>

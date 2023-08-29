@@ -7,14 +7,16 @@ import { ActionPanel } from "../ActionPanel";
 import { Search } from "../Search";
 import { TodoWrapper } from "./Todo.styles.js";
 import { selectTasks, updateTasks } from "../../reducers/todoSlice.js";
-import {selectAction} from "../../reducers/toggleButtonsSlice.js";
+import { selectAction } from "../../reducers/toggleButtonsSlice.js";
 import { selectFilter } from "../../reducers/filterSlice.js";
+import { selectSearchedText } from "../../reducers/searchSlice.js";
 
 export const Todo = () => {
   const dispatch = useDispatch();
   const tasks = useSelector(selectTasks);
   const action = useSelector(selectAction);
   const filter = useSelector(selectFilter);
+  const searchedText = useSelector(selectSearchedText);
 
   const [searchText, setSearchText] = useState("");
 
@@ -27,9 +29,9 @@ export const Todo = () => {
     handledTasks = tasks.filter((task) => task.completed === true);
   }
 
-  if (searchText) {
+  if (searchedText) {
     handledTasks = handledTasks.filter(
-      (task) => task.title.indexOf(searchText) !== -1,
+      (task) => task.title.indexOf(searchedText) !== -1,
     );
   }
 
